@@ -21,15 +21,14 @@ class AvengerResource(
     }
 
     @GetMapping("{id}")
-    fun getAvengers(@PathVariable("{id}") id: Long): ResponseEntity<AvengerResponse> {
+    fun getAvengers(@PathVariable("id") id: Long): ResponseEntity<AvengerResponse> {
         return ResponseEntity.ok(repository.getAvenger(id)?.let { AvengerResponse.from(it) })
-            ?: ResponseEntity.notFound().build()
     }
 
     @PostMapping
-    fun createAvenger(@Valid @RequestBody avengerRequest: AvengerRequest): ResponseEntity.BodyBuilder? {
+    fun createAvenger(@Valid @RequestBody avengerRequest: AvengerRequest): ResponseEntity<AvengerResponse> {
         val createdAvenger = repository.create(avengerRequest.toAvenger())
-        return ResponseEntity.created(URI("$API_PATH/${createdAvenger.id}"))
+        return ResponseEntity.created(URI("$API_PATH/${createdAvenger.id}")).build()
     }
 
     @PutMapping("{id}")
