@@ -6,7 +6,7 @@ data class AvengerResponse(
     val id: Long,
     val nick: String,
     val person: String,
-    val designation: String?,
+    val description: String?,
     val history: String?
 ) {
     companion object {
@@ -15,7 +15,7 @@ data class AvengerResponse(
                 id = avenger.id ?: 0L,
                 nick = avenger.nick,
                 person = avenger.person,
-                designation = avenger.description,
+                description = avenger.description,
                 history = avenger.history
             )
         }
